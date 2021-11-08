@@ -26,7 +26,7 @@ public class CategoriaModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@NotBlank
 	@Size(min = 2, max = 100)
