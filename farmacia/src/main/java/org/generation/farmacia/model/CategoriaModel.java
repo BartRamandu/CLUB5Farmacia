@@ -1,73 +1,87 @@
 package org.generation.farmacia.model;
 
-	import javax.persistence.Entity;
-	import javax.persistence.GeneratedValue;
-	import javax.persistence.GenerationType;
-	import javax.persistence.Id;
-	import javax.persistence.Table;
-	import javax.validation.constraints.NotBlank;
-	import javax.validation.constraints.Size;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-	/**
-	 * @author BabiLuna
-	 * @since 1.1
-	 */
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * @author BabiLuna
+ * @author pedro
+ * @since 1.0
+ */
 
-	@Entity
-	@Table(name = "tb_categoria")
-	public class CategoriaModel {
+@Entity
+@Table(name = "tb_categoria")
+public class CategoriaModel {
 
-	   
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private long id;
-		
-		@NotBlank
-		@Size(min = 2, max = 100)
-		private String categoria;
-		
-		@NotBlank
-		@Size(min = 2, max = 500)
-		private String descricao;
-		
-		@NotBlank
-		@Size(min = 2, max = 100)
-		private String formaPagamento;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
-		public long getId() {
-			return id;
-		}
+	@NotBlank
+	@Size(min = 2, max = 100)
+	private String categoria;
 
-		public void setId(long id) {
-			this.id = id;
-		}
+	@NotBlank
+	@Size(min = 2, max = 500)
+	private String descricao;
 
-		public String getCategoria() {
-			return categoria;
-		}
+	@NotBlank
+	@Size(min = 2, max = 100)
+	private String formaPagamento;
 
-		public void setCategoria(String categoria) {
-			this.categoria = categoria;
-		}
+	@OneToMany(mappedBy = "categoriaDoProduto", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("categoriaDoProduto")
+	private List<ProdutoModel> produtos;
 
-		public String getDescricao() {
-			return descricao;
-		}
+	public long getId() {
+		return id;
+	}
 
-		public void setDescricao(String descricao) {
-			this.descricao = descricao;
-		}
+	public void setId(long id) {
+		this.id = id;
+	}
 
-		public String getFormaPagamento() {
-			return formaPagamento;
-		}
+	public String getCategoria() {
+		return categoria;
+	}
 
-		public void setFormaPagamento(String formaPagamento) {
-			this.formaPagamento = formaPagamento;
-		}
-		
-		
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(String formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
+
+	public List<ProdutoModel> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<ProdutoModel> produtos) {
+		this.produtos = produtos;
+	}
 
 }
